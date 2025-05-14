@@ -16,13 +16,11 @@ public class BaseTeste {
         navChrome = new ChromeDriver();
         navChrome.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
     }
-/*
+
     @AfterEach
     public void finalizarNavegadorBase() {
         if (navChrome != null) {
             navChrome.quit();
         }
     }
-
- */
 }

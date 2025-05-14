@@ -55,7 +55,14 @@ public class FluxoCadastro extends BaseTeste {
 
 
         // Captura elemento e verifica se ele está visivel
-        navChrome.findElement(By.id("resultado")).isDisplayed();
+        Assertions.assertTrue(navChrome.findElement(By.id("resultado")).getText().startsWith("Cadastrado!"));
+        Assertions.assertTrue(navChrome.findElement(By.id("descNome")).getText().endsWith("Igor"));
+        Assertions.assertTrue(navChrome.findElement(By.id("descSobrenome")).getText().endsWith("Alves"));
+        Assertions.assertTrue(navChrome.findElement(By.id("descSexo")).getText().endsWith("Masculino"));
+        Assertions.assertTrue(navChrome.findElement(By.id("descComida")).getText().endsWith("Frango Pizza"));
+        Assertions.assertTrue(navChrome.findElement(By.id("descEscolaridade")).getText().endsWith("especializacao"));
+        Assertions.assertTrue(navChrome.findElement(By.id("descEsportes")).getText().endsWith("Karate"));
+        Assertions.assertTrue(navChrome.findElement(By.id("descSugestoes")).getText().endsWith("Deixe a UI mais bonita!"));
 
     }
 

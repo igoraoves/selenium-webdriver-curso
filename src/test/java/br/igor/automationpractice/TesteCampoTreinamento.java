@@ -1,6 +1,7 @@
 package br.igor.automationpractice;
 
 import br.igor.utils.BaseTeste;
+import br.igor.utils.DSL;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -12,22 +13,24 @@ import org.openqa.selenium.support.ui.Select;
 
 public class TesteCampoTreinamento extends BaseTeste {
 
+    private DSL dsl;
+
     @Test
     @DisplayName("Escreve texto no input nome")
     public void adicionarNome() {
         // Encontra elemento e insere texto
-        navChrome.findElement(By.id("elementosForm:nome")).sendKeys("Igor");
+        dsl.escreve("elementosForm:nome", "Igor");
         // Verifica se o texto foi escrito
-        Assertions.assertEquals("Igor", navChrome.findElement(By.id("elementosForm:nome")).getAttribute("value"));
+        Assertions.assertEquals("Igor", dsl.obterValorCampo("elementosForm:nome"));
     }
 
     @Test
     @DisplayName("Escreve texto no textArea")
     public void adicionaTextoNaTextArea(){
         // Encontra elemento e insere texto
-        navChrome.findElement(By.id("elementosForm:sugestoes")).sendKeys("Esse é um texto qualquer que estou colocando aqui");
+        dsl.escreve("elementosForm:sugestoes", "Esse é um texto qualquer que estou colocando aqui");
         // Verifica se o texto foi escrito
-        Assertions.assertEquals("Esse é um texto qualquer que estou colocando aqui", navChrome.findElement((By.id("elementosForm:sugestoes"))).getDomProperty("value"));
+        Assertions.assertEquals("Esse é um texto qualquer que estou colocando aqui", dsl.obterValorCampo("elementosForm:sugestoes"));
     }
 
     @Test
@@ -69,7 +72,7 @@ public class TesteCampoTreinamento extends BaseTeste {
         navChrome.findElement(By.id("buttonSimple")).click();
 
         // Verifica se o elemento foi alterado
-        Assertions.assertEquals("Obrigado!", navChrome.findElement(By.id("buttonSimple")).getDomProperty("value"));
+        Assertions.assertEquals("Obrigado!", dsl.obterValorCampo("buttonSimple"));
     }
 
     @Test
