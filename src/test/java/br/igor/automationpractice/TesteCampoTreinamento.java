@@ -1,25 +1,20 @@
 package br.igor.automationpractice;
 
 import br.igor.utils.BaseTeste;
-import br.igor.utils.DSL;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.Select;
 
 
 public class TesteCampoTreinamento extends BaseTeste {
-
-    private DSL dsl;
 
     @Test
     @DisplayName("Escreve texto no input nome")
     public void adicionarNome() {
         // Encontra elemento e insere texto
-        dsl.escreve("elementosForm:nome", "Igor");
+        dsl.escrever("elementosForm:nome", "Igor");
         // Verifica se o texto foi escrito
         Assertions.assertEquals("Igor", dsl.obterValorCampo("elementosForm:nome"));
     }
@@ -28,57 +23,53 @@ public class TesteCampoTreinamento extends BaseTeste {
     @DisplayName("Escreve texto no textArea")
     public void adicionaTextoNaTextArea(){
         // Encontra elemento e insere texto
-        dsl.escreve("elementosForm:sugestoes", "Esse é um texto qualquer que estou colocando aqui");
+        dsl.escrever("elementosForm:sugestoes", "Esse é um texto qualquer");
         // Verifica se o texto foi escrito
-        Assertions.assertEquals("Esse é um texto qualquer que estou colocando aqui", dsl.obterValorCampo("elementosForm:sugestoes"));
+        Assertions.assertEquals("Esse é um texto qualquer", dsl.obterValorCampo("elementosForm:sugestoes"));
     }
 
     @Test
     @DisplayName("Seleciona um radioButton")
     public void selecionaRadioButton(){
         // Encontra elemento e clica
-        navChrome.findElement(By.id("elementosForm:sexo:0")).click();
+        dsl.clicarRadio("elementosForm:sexo:0");
         // Verifica se o elemento foi selecionado
-        Assertions.assertTrue(navChrome.findElement(By.id("elementosForm:sexo:0")).isSelected());
+        dsl.isRadioMarcado("elementosForm:sexo:0");
     }
 
     @Test
     @DisplayName("Seleciona elemento 'Pizza' no Checkbox")
     public void selecionaCheckbox() {
         // Seleciona elemento e clica
-        navChrome.findElement(By.id("elementosForm:comidaFavorita:2")).click();
+        dsl.clicarRadio("elementosForm:comidaFavorita:2");
         // Verifica se o elemento foi selecionado
-        Assertions.assertTrue(navChrome.findElement(By.id("elementosForm:comidaFavorita:2")).isSelected());
+        dsl.isRadioMarcado("elementosForm:comidaFavorita:2");
     }
 
     @Test
     @DisplayName("Seleciona elemento do combo box")
     public void selecionaElementoCombobox() {
         // seleciona elemento
-        WebElement element = navChrome.findElement(By.id("elementosForm:escolaridade"));
-        Select combo = new Select(element);
-        // combo.selectByIndex(3);
-        // combo.selectByValue("superior");
-        combo.selectByContainsVisibleText("Especializacao");
+        dsl.selecionarCombo("elementosForm:escolaridade","Especializacao");
 
         // Verifica se o elemento foi selecionado
-        Assertions.assertEquals("Especializacao", combo.getFirstSelectedOption().getText());
+        Assertions.assertEquals("Especializacao", dsl.obterValorCombo("elementosForm:escolaridade"));
     }
 
     @Test
     @DisplayName("Deve interagir com o Botão")
     public void interageComBotao() {
         // Seleciona elemento
-        navChrome.findElement(By.id("buttonSimple")).click();
+        driver.findElement(By.id("buttonSimple")).click();
 
         // Verifica se o elemento foi alterado
-        Assertions.assertEquals("Obrigado!", dsl.obterValorCampo("buttonSimple"));
+        Assertions.assertEquals("Obrigado!", driver.findElement(By.id("buttonSimple")).getDomProperty("value"));
     }
 
     @Test
     @DisplayName("Deve interagir com o link")
     public void interageComLink() {
-        navChrome.findElement(By.linkText("Voltar")).click();
+        driver.findElement(By.linkText("Voltar")).click();
 
     }
 
@@ -86,8 +77,8 @@ public class TesteCampoTreinamento extends BaseTeste {
     @DisplayName("Deve interagir com o alert")
     public void interageComAlert(){
 
-        navChrome.findElement(By.id("alert")).click();
-        Alert alert = navChrome.switchTo().alert();
+        driver.findElement(By.id("alert")).click();
+        Alert alert = driver.switchTo().alert();
 
         Assertions.assertEquals("Alert Simples", alert.getText());
     }
@@ -97,9 +88,9 @@ public class TesteCampoTreinamento extends BaseTeste {
     public void confirmaAlert() {
 
         // Captura elemento
-        navChrome.findElement(By.id("confirm")).click();
+        driver.findElement(By.id("confirm")).click();
         // Muda contexto para manipular o alert
-        Alert alert = navChrome.switchTo().alert();
+        Alert alert = driver.switchTo().alert();
         // Confirma mensagem do alert
         alert.accept();
         // Verifica se realmente foi aceito
@@ -111,9 +102,9 @@ public class TesteCampoTreinamento extends BaseTeste {
     public void cancelaAlert() {
 
         // Captura elemento
-        navChrome.findElement(By.id("confirm")).click();
+        driver.findElement(By.id("confirm")).click();
         // Muda contexto para manipular o alert
-        Alert alert = navChrome.switchTo().alert();
+        Alert alert = driver.switchTo().alert();
         // Confirma mensagem do alert
         alert.dismiss();
         // Verifica se realmente foi aceito

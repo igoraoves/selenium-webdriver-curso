@@ -10,10 +10,10 @@ public class TesteJanelas extends BaseTeste {
     @Test
     @DisplayName("Testa uso com janelas")
     public void deveInteragirComJanela() {
-        navChrome.findElement(By.id("buttonPopUpEasy")).click();
-        navChrome.switchTo().window("Popup");
-        navChrome.findElement(By.tagName("textarea")).sendKeys("Funcionou?");
-        navChrome.switchTo().window("");
-        navChrome.findElement(By.tagName("textarea")).sendKeys("Funcionou?");
+        driver.findElement(By.id("buttonPopUpEasy")).click();
+        driver.switchTo().window("Popup");
+        driver.findElement(By.tagName("textarea")).sendKeys("Funcionou?");
+        driver.switchTo().window("");
+        driver.findElement(By.tagName("textarea")).sendKeys("Funcionou?");
     }
 }
